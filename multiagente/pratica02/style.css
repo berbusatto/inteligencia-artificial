@@ -1,0 +1,21 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: absolute;
+    margin: 0;
+}
+section {
+    margin:15px auto auto auto;
+    width: 700px;
+    height: 700px;
+    border: 1px solid;
+    border-radius: 15px;
+}
+
+#finalmessage {
+    display: none;
+    margin:15px auto auto auto;
+    width: 700px;
+    height: 700px;
+    border: 1px solid;
+    border-radius: 15px;
+}

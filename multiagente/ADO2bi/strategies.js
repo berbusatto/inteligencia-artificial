@@ -41,6 +41,7 @@ function goToTarget(ag) {
 ////////////////////// ESTRATÉGIAS ////////////////////
 ///////////////////////////////////////////////////////
 
+
 // ROXO - DONE
 function strategy00(ag) {
     const agent = document.getElementById(ag.idOfAgent)
@@ -50,7 +51,6 @@ function strategy00(ag) {
     var barrierDistanceY
     var barrierPositionY
     var posY = ag.getMyPositionY()
-
 
     function barrierJump(agentElement, sizeIncrement) {
         var currentSize = 30;
@@ -73,10 +73,8 @@ function strategy00(ag) {
     })
 
     if (barrierDetected && barrierDistanceY < 20) {
-        //debugger
         barrierJump(agent, sizeIncrement)
     } else if(barrierDetected && posY >= (barrierPositionY -20)){
-        //debugger
         barrierLand(agent)
     }
 
@@ -88,14 +86,12 @@ function strategy00(ag) {
 }
 
 
-
 // AZUL - DONE
 function strategy01(ag) {
     var detect = ag.detectedWhatIsInFront()
     var direction = Direction.Up
 
     if (detect.length > 0) {
-        // DESESTRUTURAÇÃO
         const {
             diffPositionX,
             diffPositionY
@@ -116,26 +112,20 @@ function strategy01(ag) {
 }
 
 
-
 // VERDE - DONE
 function strategy02(ag) {
-
     var direction = Direction.Up
     var detect = ag.detectedWhatIsInFront()
     var posX = ag.getMyPositionX()
 
     if (detect.length > 0) {
-
-        // DESESTRUTURAÇÃO
         const {
             elementId,
             positionXOfOther,
             diffPositionY
         } = detect[0]
 
-
         if (diffPositionY <= 20) {
-
             // CALCULANDO CENTRO DO AGENTE
             const agent = document.getElementById(ag.idOfAgent)
             const agentWidth = parseInt(agent.style.width.split("px")[0], 10)
@@ -168,10 +158,8 @@ function strategy02(ag) {
 }
 
 
-
 // ROSA - TODO
 function strategy03(ag) {
-    // AO INVES DE DEFINIR PRA QUAL DIREÇÃO VC VAI QUANDO CHEGA NA BARREIRA PELO CENTRO
     // DEFINIR COM A DISTANCIA PARA O TARGET 
     // SE O ALVO ESTIVER PARA A DIREITA, 
     // IR PARA DIREITA ATÉ O FIM DA BARREIRA
@@ -207,7 +195,6 @@ function strategy03(ag) {
 }
 
 
-
 // LARANJA - DONE
 function strategy04(ag) {
 
@@ -215,33 +202,13 @@ function strategy04(ag) {
     var posX = ag.getMyPositionX()
     var posY = ag.getMyPositionY()
 
-    // var agentDetected = detect.some((element) => {
-    //     return element.elementId.includes('agent')
-    // })
-
-    // function closestBarrier(detect) {
-    //     if (detect.length > 0) {
-    //         const closestTopArtefact = detect.reduce((minor, current) => {
-    //             const currentBarrierPositionY = parseInt(current.positionYOfOther);
-    //             const minorBarrierPositionY = parseInt(minor.positionYOfOther);
-    //             return currentBarrierPositionY < minorBarrierPositionY ? current : minor;
-    //         });
-    //         console.log(closestTopArtefact.elementId)
-    //         var closestTopArtefactId = closestTopArtefact.elementId
-    //     }        
-    // }
-
     if (posY >= 550 && posX < 670) {
         var direction = Direction.Right
     } else {
         direction = Direction.Up
     }
 
-    // topBarrier = closestBarrier(detect)
-
-    if (detect.length > 0 && detect[0].diffPositionY < 25) {
-        
-        
+    if (detect.length > 0 && detect[0].diffPositionY < 25) {       
         direction = Direction.Left
     }
 
@@ -250,9 +217,7 @@ function strategy04(ag) {
     } else {
         moveAgent(ag, direction)
     }
-
 }
-
 
 
 // AMARELO - TODO
@@ -266,9 +231,7 @@ function strategy05(ag) {
     } else {
         moveAgent(ag, direction)
     }
-
 }
-
 
 
 // VERMELHO - DONE
@@ -291,5 +254,4 @@ function strategy06(ag) {
     } else {
         moveAgent(ag, direction)
     }
-
 }

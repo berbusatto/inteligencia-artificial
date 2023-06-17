@@ -1,6 +1,6 @@
 
 const numberOfInteraction = 500
-const timeOfOneInteraction = 0.03
+const timeOfOneInteraction = 0.02
 
 target("350px","10px")
 
@@ -62,20 +62,19 @@ artefact("artefact706", "650px","500px")
 
 const agentZero = new Agent("agentZero","50px", "600px", "#4B0082")
 const agentOne = new Agent("agentOne", "150px", "600px", "#1E90FF")
-//const agentTwo = new Agent("agentTwo", "250px", "600px", "#FF1493")
+const agentTwo = new Agent("agentTwo", "250px", "600px", "#FF1493")
 const agentTree = new Agent("agentTree","350px", "600px","#7FFFD4")
 const agentFour = new Agent("agentFour","450px", "600px","#F4A460") 
-//const agentFive = new Agent("agentFive","550px", "600px","#FFD700")
+const agentFive = new Agent("agentFive","550px", "600px","#FFD700")
 const agentSix = new Agent("agentSix","650px", "600px","#B22222")
 
 
 function main () {
-    strategy00(agentZero)
+    strategy00(agentTwo)
     strategy01(agentOne)
     strategy02(agentTree)   
-    //strategy03(agentTwo)
+    strategy03(agentZero)
     strategy04(agentFour)
-    //strategy05(agentFive)
+    strategy05(agentFive)
     strategy06(agentSix)
-
 }

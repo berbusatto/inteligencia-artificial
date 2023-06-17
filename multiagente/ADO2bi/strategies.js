@@ -37,15 +37,19 @@ function goToTarget(ag) {
     return direction
 }
 
+function finalCondition(ag, direction){
+    (goToTarget(ag) ? moveAgent(ag, goToTarget(ag)) : moveAgent(ag, direction))
+}
+
 ///////////////////////////////////////////////////////
 ////////////////////// ESTRATÉGIAS ////////////////////
 ///////////////////////////////////////////////////////
 
 
-// ROXO - DONE
+// ROSA - DONE
 function strategy00(ag) {
     const agent = document.getElementById(ag.idOfAgent)
-    const sizeIncrement = 7.5
+    const sizeIncrement = 8
     var detect = ag.detectedWhatIsInFront()
     var direction = Direction.Up
     var barrierDistanceY
@@ -78,11 +82,7 @@ function strategy00(ag) {
         barrierLand(agent)
     }
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    finalCondition(ag, direction)
 }
 
 
@@ -98,17 +98,13 @@ function strategy01(ag) {
         } = detect[0]
 
         if (diffPositionY <= 20) {
-            direction = Direction.Right
+            direction = Direction.Left
         } else if (diffPositionX <= 20) {
-            direction = Direction.Up
+            direction = Direction.Up 
         }
     }
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    finalCondition(ag, direction)
 }
 
 
@@ -150,48 +146,37 @@ function strategy02(ag) {
         }
     }
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    finalCondition(ag, direction)
 }
 
 
-// ROSA - TODO
+// ROXO - DONE
 function strategy03(ag) {
-    // DEFINIR COM A DISTANCIA PARA O TARGET 
-    // SE O ALVO ESTIVER PARA A DIREITA, 
-    // IR PARA DIREITA ATÉ O FIM DA BARREIRA
-
     var detect = ag.detectedWhatIsInFront()
     var direction = Direction.Up
     var posX = ag.getMyPositionX()
     var posY = ag.getMyPositionY()
+    var barrierDistanceY   
 
     const target = document.getElementById('target')
     const targetPositionX = parseInt(target.style.left.split("px")[0], 10)
     const targetPositionY = parseInt(target.style.top.split("px")[0], 10)
 
     var barrierDetected = detect.some((element) => {
-        return element.elementId.includes('artefact')
-    })
 
-    if (targetPositionY >= posY) {
-        if (targetPositionX > posX && barrierDetected) {
+        barrierDistanceY = element.diffPositionY
+        return element.elementId.includes('artefact')
+    })      
+
+    if (targetPositionY <= posY) {
+        if (targetPositionX > posX && barrierDetected && barrierDistanceY <= 20) {
             direction = Direction.Right
-        } else if (targetPositionX < posX && barrierDetected) {
+        } else if (targetPositionX < posX && barrierDetected && barrierDistanceY <= 20) {
             direction = Direction.Left
-        } else {
-            direction = Direction.Up
         }
     }
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    finalCondition(ag, direction)
 }
 
 
@@ -212,25 +197,32 @@ function strategy04(ag) {
         direction = Direction.Left
     }
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    finalCondition(ag, direction)
 }
 
 
-// AMARELO - TODO
-function strategy05(ag) {
-    // RANDOM USANDO VAR GLOBAL DE ESTADO PARA MANTER DIREÇÃO
-    // COMO???
-    var direction = Direction.Up
+// AMARELO - DONE
+function strategy05(ag) { 
+    var direction = Direction.Up   
+    var posX = ag.getMyPositionX()
+    var posY = ag.getMyPositionY()
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    detect = ag.detectedWhatIsInFront()
+
+    if(detect.length > 0){
+        const barrier = document.getElementById(detect[detect.length -1].elementId)
+        const barrierPositionX = parseInt(barrier.style.left.split("px")[detect.length -1], 10)
+        const barrierPositionY = parseInt(barrier.style.top.split("px")[detect.length -1], 10)
+
+        if(barrierPositionY >= posY -20){
+            if(barrierPositionX >= posX + 40){
+                direction = Direction.Up
+            } else{
+                direction = Direction.Right
+            }
+        }    
+    } 
+    finalCondition(ag, direction)
 }
 
 
@@ -249,9 +241,5 @@ function strategy06(ag) {
         direction = Direction.Left
     }
 
-    if (goToTarget(ag)) {
-        moveAgent(ag, goToTarget(ag))
-    } else {
-        moveAgent(ag, direction)
-    }
+    finalCondition(ag, direction)
 }
